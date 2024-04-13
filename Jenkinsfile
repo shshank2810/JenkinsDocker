@@ -46,6 +46,35 @@ sh 'dotnet build'
 }
  
 }
+
+stage('SonarQube Analysis') {
+
+            environment {
+
+                scannerHome = tool 'SonarScanner for MSBuild'
+
+            }
+
+            steps {
+
+                script {
+
+                    withSonarQubeEnv('SonarQube-Server') {
+
+                        sh "dotnet ${scannerHome}/SonarScanner.MSBuild.dll begin /k:\"Devops\""
+
+                        sh "dotnet build"
+
+                        sh "dotnet ${scannerHome}/SonarScanner.MSBuild.dll end"
+
+                    }
+
+                }
+
+            }
+
+        }
+ 
 stage('Test') {
  
 steps {
