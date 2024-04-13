@@ -89,7 +89,7 @@ stage('Run container') {
 steps {
  
 script{
-    sh 'docker rm -f ${IMAGE_NAME} || true '
+    sh 'docker rm -f devops || true '
     sh "docker run -d --name devops -p 8000:80 ${IMAGE_NAME}:${IMAGE_TAG}"
 }
  
